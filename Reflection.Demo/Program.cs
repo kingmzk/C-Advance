@@ -65,7 +65,7 @@ namespace Reflection.Demo
                 foreach (var property in type.GetProperties())
                 {
                     Console.WriteLine($"Property : {property.Name}");
-                    var propertyValue = property.GetValue(instance);
+                    var propertyValue = property.GetValue(instance); //instance will be neglected if the property is static
                     Console.WriteLine($"Property value {propertyValue}");
                 }
             }

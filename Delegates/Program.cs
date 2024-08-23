@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Delegates;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -160,6 +161,8 @@ namespace LinqIAndDelegates.Delegates
      }
 
     */
+
+    /*
     //Event Handling
     using System;
 
@@ -210,7 +213,26 @@ namespace LinqIAndDelegates.Delegates
             Console.ReadLine();
         }
     }
+      //So, delegates enable the Publisher to raise events without knowing anything about the subscribers, and they allow subscribers to handle events without knowing anything about the Publisher. This promotes decoupling and flexibility in the code architecture.
+    */
 
-    //So, delegates enable the Publisher to raise events without knowing anything about the subscribers, and they allow subscribers to handle events without knowing anything about the Publisher. This promotes decoupling and flexibility in the code architecture.
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var processor = new PhotoProcessor();
+            var filters = new PhotoFilters();
 
+            Action<Photo> filterHandler = filters.ApplyFilters;
+            filterHandler += filters.ApplyBrightness;
+            filterHandler += RemoveRedEyeFilter;
+
+            processor.process("photo.jpg", filterHandler);
+        }
+
+        static void RemoveRedEyeFilter(Photo photo)
+        {
+            Console.WriteLine("Apply RemoveREdEye");
+        }
+    }
 }
